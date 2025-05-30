@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Existing scripts for video and XLSX handling -->
   <script type="text/javascript">
     var gk_isXlsx = false;
     var gk_xlsxFileLookup = {};
@@ -14,23 +15,13 @@
           var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
           var firstSheetName = workbook.SheetNames[0];
           var worksheet = workbook.Sheets[firstSheetName];
-
-          // Convert sheet to JSON to filter blank rows
           var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-          // Filter out blank rows (rows where all cells are empty, null, or undefined)
           var filteredData = jsonData.filter(row => row.some(filledCell));
-
-          // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
           var headerRowIndex = filteredData.findIndex((row, index) =>
             row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
           );
-          // Fallback
-          if (headerRowIndex === -1 || headerRowIndex > 25) {
-            headerRowIndex = 0;
-          }
-
-          // Convert filtered JSON back to CSV
-          var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+          if (headerRowIndex === -1 || headerRowIndex > 25) headerRowIndex = 0;
+          var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex));
           csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
           return csv;
         } catch (e) {
@@ -45,80 +36,89 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>পড় মন দিয়া</title>
+  <link rel="icon" href="https://cdn-icons-png.freepik.com/512/7856/7856382.png" type="image/png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdn.plyr.io/3.7.8/plyr.css" rel="stylesheet">
   <style>
-    /* Custom dark theme styles */
     body {
-      background-color: #1a202c; /* Dark background */
-      color: #e2e8f0; /* Light text */
-      background-image: url('https://img.freepik.com/free-vector/abstract-blue-circle-black-background-technology_1142-12714.jpg?t=st=1746541992~exp=1746545592~hmac=0a0242f10827fa6240cd3daf8fce772208de97db1a053c959e6f07d12e6e6d51&w=996');
-      background-size: cover;
-      background-attachment: fixed;
-    }
-    .bg-white {
-      background-color: #2d3748; /* Darker background for cards */
-    }
-    .text-gray-100 {
-      color: #e2e8f0; /* Ensure text is light on dark background */
-    }
-    /* Adjust text color for list items */
-    #classList li {
+      background: radial-gradient(circle at top, #0f0f3d, #000);
       color: #e2e8f0;
+      min-height: 100vh;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', sans-serif;
     }
-    #classList li i {
-      color: #f56565; /* Keep red for PDF icon */
+
+    header {
+      background-color: #000;
+      box-shadow: 0 0 10px #0ff;
     }
-    .hover\:bg-blue-100:hover {
-      background-color: #4a5568; /* Darker hover effect */
+
+    .bg-white {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
+
+    .text-gray-100,
+    .text-lg {
+      color: #9cf !important;
+    }
+
+    #classList li {
+      color: #ccc;
+    }
+
+    #classList li:hover {
+      background-color: rgba(0, 255, 255, 0.1);
+    }
+
     .bg-blue-200 {
-      background-color: #4a5568; /* Darker background for selected item */
+      background-color: rgba(0, 255, 255, 0.2) !important;
     }
+
     .text-red-500 {
-      color: #f56560; /* Keep red for PDF icon */
+      color: #f56565;
     }
-    /* Style for the fake button */
+
     .fake-button {
-      pointer-events: none; /* Make it non-interactive */
-      opacity: 0.6; /* Dim it to show it's fake */
+      pointer-events: none;
+      opacity: 0.6;
     }
+
     .footer-quotes {
       margin-top: 1rem;
       font-size: 0.9rem;
-      color: #a0aec0; /* Lighter text for quotes */
+      color: #888;
     }
+
     .footer-quotes p {
       margin-bottom: 0.5rem;
     }
-    /* Styling for the Download Emoji button */
+
     .download-emoji {
-      display: inline-block;
-      background-color: #f6993f; /* Example color, adjust as needed */
-      color: #1a202c; /* Dark text for contrast */
+      background-color: #0ff;
+      color: #000;
       padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      transition: background-color 0.2s ease-in-out;
+      border-radius: 0.5rem;
+      transition: background 0.3s;
     }
+
     .download-emoji:hover {
-      background-color: #de751f; /* Darker hover color */
+      background-color: #0cc;
     }
-    /* Plyr Customizations */
-    /* Make the progress bar take available space */
-    .plyr__progress {
-      flex-grow: 1; /* Allow progress bar to take more space */
-      margin-right: 10px; /* Add some space */
+
+    .shadow-md {
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
     }
-    /* Ensure controls are a flex container */
-    .plyr__controls {
-      display: flex;
-      align-items: center; /* Align items vertically */
+
+    h1, h2 {
+      text-shadow: 0 0 10px #0ff;
     }
-    /* Hide the volume control entirely */
-    .plyr__controls__item.plyr__volume {
-      display: none !important;
+
+    footer {
+      background-color: #000;
+      color: #888;
+      border-top: 1px solid #222;
     }
   </style>
 </head>
@@ -149,8 +149,7 @@
 
       <h2 class="text-lg font-semibold mb-4 text-gray-100">Class List</h2>
       <ul id="classList" class="space-y-2 max-h-96 overflow-y-auto">
-       
-<li class="class-item p-2 rounded hover:bg-blue-100 cursor-pointer" data-vid="BzX25StCOyQ" data-nname="জৈব যৌগের ইতিহাস - পর্ব ০১" data-npdf="20250521-1747767276-zTUgBskf.pdf">
+      <li class="class-item p-2 rounded hover:bg-blue-100 cursor-pointer" data-vid="BzX25StCOyQ" data-nname="জৈব যৌগের ইতিহাস - পর্ব ০১" data-npdf="20250521-1747767276-zTUgBskf.pdf">
   জৈব যৌগের ইতিহাস - পর্ব ০১ <i class="fas fa-file-pdf text-red-500 ml-2"></i>
 </li>
 <li class="class-item p-2 rounded hover:bg-blue-100 cursor-pointer" data-vid="a_tsletdZjs" data-nname="জৈব যৌগের ইতিহাস - পর্ব ০২" data-npdf="20250525-1748120787-RXz1vtTE.pdf">
@@ -204,36 +203,18 @@
       }
     }
 
+    // Listen for the 'ready' event to set quality once the player is ready
+    player.on('ready', event => {
+      setTimeout(setHighestQuality, 100);
+    });
+
+    // Listen for the 'sourcechange' event to set quality when a new video is loaded
+    player.on('sourcechange', event => {
+      setTimeout(setHighestQuality, 100);
+    });
+
     // Variable to store the current video ID
     let currentVideoId = '';
-    // Variable to store the last saved playback time
-    let lastSavedTime = 0;
-    // Interval for saving playback progress
-    let saveProgressInterval;
-
-    // Function to save playback position to localStorage
-    function savePlaybackProgress() {
-      if (currentVideoId && player.currentTime > 0) {
-        // Only save if current time has changed significantly or at intervals
-        if (Math.abs(player.currentTime - lastSavedTime) > 1 || player.currentTime === player.duration) {
-          localStorage.setItem(`video_progress_${currentVideoId}`, player.currentTime);
-          lastSavedTime = player.currentTime;
-          console.log(`Saved progress for ${currentVideoId} at ${player.currentTime.toFixed(2)}s`);
-        }
-      }
-    }
-
-    // Function to load and apply playback position from localStorage
-    function loadPlaybackProgress(videoId) {
-      const savedTime = parseFloat(localStorage.getItem(`video_progress_${videoId}`));
-      if (!isNaN(savedTime) && savedTime > 0) {
-        // Use a timeout to ensure the player is ready before seeking
-        player.on('ready', () => {
-          player.currentTime = savedTime;
-          console.log(`Resuming ${videoId} from ${savedTime.toFixed(2)}s`);
-        });
-      }
-    }
 
     // Handle class selection
     function attachClassItemListeners() {
@@ -251,7 +232,7 @@
       classItems.forEach(item => {
         const new_listener = () => {
           const videoId = item.dataset.vid;
-          currentVideoId = videoId; // Store the video ID for the YouTube button and progress saving
+          currentVideoId = videoId; // Store the video ID for the YouTube button
           player.source = {
             type: 'video',
             sources: [{ src: videoId, provider: 'youtube' }]
@@ -265,15 +246,6 @@
           } else {
             downloadPdfBtn.classList.add('hidden');
           }
-
-          // Load playback progress for the newly selected video
-          loadPlaybackProgress(videoId);
-
-          // Clear previous interval and start a new one for the current video
-          if (saveProgressInterval) {
-            clearInterval(saveProgressInterval);
-          }
-          saveProgressInterval = setInterval(savePlaybackProgress, 5000); // Save every 5 seconds
         };
         item.addEventListener('click', new_listener);
         item._eventListener = new_listener;
@@ -281,7 +253,7 @@
     }
     attachClassItemListeners();
 
-    // Load videos from localStorage (for custom added videos)
+    // Load videos from localStorage
     const storedVideos = JSON.parse(localStorage.getItem('customVideos')) || [];
     const classListUl = document.getElementById('classList');
     storedVideos.forEach(video => {
@@ -293,31 +265,7 @@
       li.innerHTML = `${video.title}${video.pdfLink ? ` <i class="fas fa-file-pdf text-red-500 ml-2"></i>` : ''}`;
       classListUl.appendChild(li);
     });
-    // Re-attach listeners after adding custom videos
     attachClassItemListeners();
-
-    // Initial setup: Load progress for the default video if available
-    // The default video is set by data-plyr-embed-id="RUQcm3vIbWo"
-    // We need to ensure the player is ready before trying to load progress for the initial video.
-    player.on('ready', () => {
-      currentVideoId = 'RUQcm3vIbWo'; // Set initial video ID
-      loadPlaybackProgress(currentVideoId);
-      // Start saving progress for the initial video
-      if (saveProgressInterval) {
-        clearInterval(saveProgressInterval);
-      }
-      saveProgressInterval = setInterval(savePlaybackProgress, 5000); // Save every 5 seconds
-    });
-
-    // Listen for the 'ready' event to set quality once the player is ready
-    player.on('ready', event => {
-      setTimeout(setHighestQuality, 100);
-    });
-
-    // Listen for the 'sourcechange' event to set quality when a new video is loaded
-    player.on('sourcechange', event => {
-      setTimeout(setHighestQuality, 100);
-    });
 
     // Download Emoji button functionality using the stored video ID
     const downloadEmojiBtn = document.getElementById('downloadEmojiBtn');
@@ -326,30 +274,7 @@
         const youtubeUrl = `https://www.youtube.com/watch?v=${currentVideoId}`;
         window.open(youtubeUrl, '_blank');
       } else {
-        // Using a custom message box instead of alert()
-        const messageBox = document.createElement('div');
-        messageBox.style.cssText = `
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background-color: #333;
-          color: white;
-          padding: 20px;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-          z-index: 1000;
-          text-align: center;
-        `;
-        messageBox.innerHTML = `
-          <p>No video selected</p>
-          <button style="margin-top: 10px; padding: 8px 15px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">OK</button>
-        `;
-        document.body.appendChild(messageBox);
-
-        messageBox.querySelector('button').addEventListener('click', () => {
-          document.body.removeChild(messageBox);
-        });
+        alert("No video selected");
       }
     });
 
@@ -389,9 +314,6 @@
         }
       }
     });
-
-    // Save progress when the user leaves or closes the tab
-    window.addEventListener('beforeunload', savePlaybackProgress);
   </script>
 
 </body>
