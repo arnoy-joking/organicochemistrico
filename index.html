@@ -40,230 +40,249 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdn.plyr.io/3.7.8/plyr.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-<style>
-  body {
-    background: linear-gradient(135deg, #1e1e2f, #2b2c3c);
-    font-family: 'Inter', sans-serif;
-    color: #e0e0e0;
+  <style>
+  html, body {
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1f1f1f;
+    color: #e5e7eb;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
   header {
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #ffffff;
-    border-radius: 24px;
-    margin: 1rem;
+    background-color: #2a2a2a;
+    border-radius: 1rem;
+    padding: 1rem;
+    margin: 1rem auto;
+    max-width: 100%;
+    width: calc(100% - 2rem);
+    box-sizing: border-box;
   }
 
   .bg-white {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
+    background-color: #2f2f2f !important;
+    border: 1px solid #3a3a3a;
+    border-radius: 1rem;
     padding: 1rem;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    margin: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .text-gray-100,
+  .text-lg {
+    color: #d4d4d4 !important;
   }
 
   #classList {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 1rem;
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
-    overflow-y: auto;
-    max-height: 500px; /* you can change this */
-    overflow-x: hidden;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   #classList li {
-    background-color: rgba(255, 255, 255, 0);
-    border: 1px solid rgba(255, 255, 255, 0.07);
     color: #d1d1d1;
-    margin: 1rem auto;
-    padding: 0.1rem 1.5rem;
-    border-radius: 26px;
-    transition: all 0.3s ease;
-    list-style: none;
-    max-width: 95%;
-    word-break: break-word;
-    text-align: center;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    background-color: #262626;
+    margin-bottom: 0.5rem;
+    transition: background-color 0.2s ease;
   }
 
   #classList li:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    transform: scale(1.02);
-    cursor: pointer;
+    background-color: #313131;
   }
 
-
-  .text-gray-100, .text-lg {
-    color: #dcdcdc !important;
+  .bg-blue-200 {
+    background-color: #3b3b3b !important;
+    border-radius: 1rem;
+    padding: 0.75rem;
   }
 
   .text-red-500 {
-    color: #ff6b6b;
-    font-weight: bold;
+    color: #ef4444;
   }
 
-  .download-emoji {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    padding: 0.6rem 1.2rem;
-    font-weight: 600;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
-    transition: all 0.2s ease;
-    display: inline-block;
-    margin: 1rem;
+  .fake-button {
+    pointer-events: none;
+    opacity: 0.5;
   }
 
-  .download-emoji:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: scale(1.03);
-  }
-
-  #downloadPdfBtn {
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.1),
-      0 4px 30px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 1rem; /* Fully rounded */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: all 0.3s ease-in-out;
-  }
-
-  #downloadPdfBtn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.15),
-      0 6px 35px rgba(0, 255, 150, 0.3);
-    transform: scale(1.02);
-  }
-
-
-  footer {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    color: #888;
-    padding: 1rem;
-    font-size: 0.9rem;
+  .footer-quotes {
+    font-size: 0.85rem;
+    color: #999;
     text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    border-radius: 24px 24px 0 0;
     margin-top: 2rem;
+    padding: 0 1rem;
   }
 
   .footer-quotes p {
     margin: 0.4rem 0;
-    font-style: italic;
-    color: #aaa;
   }
 
-  /* Plyr Glass Style */
-  .plyr {
-  border-radius: 28px;
-  overflow: hidden;
-  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(10px);
-  margin: 1.7rem auto;
-  width: 100%;
-  max-width: 900px;  /* max width for big screens */
-  height: auto;
-  display: block;
-}
+  .download-emoji {
+    display: inline-block;
+    background-color: #3f3f3f;
+    color: #f0f0f0;
+    padding: 0.6rem 1.2rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    text-align: center;
+  }
 
+  .download-emoji:hover {
+    background-color: #4a4a4a;
+  }
+
+  .shadow-md {
+    border-radius: 1rem;
+  }
+
+  h1, h2 {
+    color: #e2e2e2;
+    font-size: 1.5rem;
+    margin: 1rem 0 0.5rem;
+    text-align: center;
+  }
+
+  footer {
+    background-color: #262626;
+    color: #b0b0b0;
+    border-top: 1px solid #333;
+    padding: 1rem;
+    text-align: center;
+    border-radius: 1rem;
+    margin: 1rem auto 0;
+    width: calc(100% - 2rem);
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Plyr Customizations */
+  .plyr {
+    border-radius: 1rem;
+    background-color: #2a2a2a;
+    overflow: hidden;
+    max-width: 100%;
+  }
 
   .plyr__video-wrapper {
-    background: rgba(255,255,255,0.08);
+    background-color: #1e1e1e;
   }
 
   .plyr__control--overlaid {
-    background: rgba(255, 255, 255, 0.1) !important;
-    padding: 18px !important;
+    background: #3a3a3a !important;
     border-radius: 50%;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    padding: 18px !important;
   }
 
   .plyr__control--overlaid svg {
-    color: #ffffff !important;
-    width: 48px !important;
-    height: 48px !important;
+    width: 40px !important;
+    height: 40px !important;
+    color: #fff !important;
   }
 
   .plyr__controls {
-    background: rgba(255, 255, 255, 0.05) !important;
-    padding: 0.8rem 1rem;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    border-bottom-left-radius: 24px;
-    border-bottom-right-radius: 24px;
+    background-color: #2e2e2e !important;
+    padding: 0.5rem 1rem;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
   }
 
   .plyr__controls .plyr__control svg {
-    color: #f0f0f0 !important;
+    color: #fff !important;
   }
 
   .plyr__controls .plyr__control:hover svg {
-    color: #ffcb77 !important;
+    color: #ddd !important;
+  }
+
+  .plyr__progress {
+    width: 100% !important;
+    margin: auto !important;
   }
 
   .plyr__progress input[type=range] {
-    color: #ffffff !important;
-    height: 6px !important;
+    color: white !important;
+    height: 4px !important;
+  }
+
+  .plyr__progress input[type=range]::-webkit-slider-runnable-track,
+  .plyr__progress input[type=range]::-moz-range-track,
+  .plyr__progress input[type=range]::-ms-track {
+    background-color: #444 !important;
+    height: 4px !important;
   }
 
   .plyr__volume {
     display: none !important;
   }
 
+  .plyr__time {
+    color: #fff !important;
+  }
+
   .plyr__tooltip {
-    background: rgba(0,0,0,0.85) !important;
+    background-color: #3a3a3a !important;
     color: white !important;
-    border-radius: 8px;
-    padding: 0.4rem 0.6rem;
+    border-radius: 0.4rem !important;
+    font-size: 0.75rem !important;
   }
 
   .plyr__menu__container {
-    background: rgba(0,0,0,0.7) !important;
+    background-color: #2e2e2e !important;
     color: white !important;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+    border-radius: 0.4rem !important;
+    font-size: 0.9rem;
   }
 
+  .plyr__menu__container [role=menuitemradio],
+  .plyr__menu__container [role=menuitem] {
+    color: white !important;
+  }
+
+  .plyr__menu__container [role=menuitemradio]:hover,
   .plyr__menu__container [role=menuitem]:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
+    background-color: #3b3b3b !important;
   }
 
   .plyr__menu__container .plyr__control--active {
-    background: rgba(255,255,255,0.2) !important;
+    background-color: #444 !important;
   }
 
   .plyr__menu__container .plyr__control--active svg {
     color: white !important;
   }
-</style>
 
+  /* Make everything scale better on small screens */
+  @media (max-width: 768px) {
+    header, footer, .bg-white {
+      width: calc(100% - 1.5rem);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1, h2 {
+      font-size: 1.25rem;
+    }
+
+    .download-emoji {
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+    }
+
+    .plyr__control--overlaid {
+      padding: 14px !important;
+    }
+
+    .plyr__control--overlaid svg {
+      width: 32px !important;
+      height: 32px !important;
+    }
+  }
+</style>
 
 </head>
 <body class="font-sans">
@@ -281,14 +300,10 @@
           <i class="fas fa-share-alt" style="color: white; font-size: 20px; filter: drop-shadow(0 1px 1px rgba(0,0,0,0.5));"></i>
         </button>
       </div>
-      <div class="flex space-x-2 mt-2">
-          <a id="downloadPdfBtn"
-   href="https://www.bondipathshala.com.bd/pdf/20240527-1716748184-LRH05IsN.pdf"
-   target="_blank"
-   class="inline-block px-4 py-2 rounded-2xl text-white font-semibold backdrop-blur-md bg-white/10 border border-white/30 shadow-md hover:bg-white/20 transition-all duration-300">
-  <p>  </p><br><i class="fas fa-file-pdf mr-2"></i>Download PDF<br>
-          <p>  </p><br> <p>  </p>
-</a>
+      <div class="flex space-x-4 mt-4">
+        <a id="downloadPdfBtn" href="https://www.bondipathshala.com.bd/pdf/20240527-1716748184-LRH05IsN.pdf" target="_blank" class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          <i class="fas fa-file-pdf mr-2"></i>Download PDF
+        </a>
         <button id="downloadEmojiBtn" class="download-emoji">
           <i class="fas fa-smile mr-2"></i>Open on YouTube
         </button>
@@ -296,10 +311,13 @@
     </div>
 
     <div class="lg:w-1/4 bg-white rounded-lg shadow-md p-4">
-     
+      <button id="openAddVideoBtn" class="w-full bg-black text-white p-2 rounded mb-4 fake-button">
+        <i class="fas fa-plus mr-2"></i>Add New Class
+      </button>
+
       <h2 class="text-lg font-semibold mb-4 text-gray-100">Class List</h2>
       <ul id="classList" class="space-y-2 max-h-96 overflow-y-auto">
-        <li class="class-item p-2 rounded hover:bg-blue-100 cursor-pointer" data-vid="BzX25StCOyQ" data-nname="জৈব যৌগের ইতিহাস - পর্ব ০১" data-npdf="20250521-1747767276-zTUgBskf.pdf">
+       <li class="class-item p-2 rounded hover:bg-blue-100 cursor-pointer" data-vid="BzX25StCOyQ" data-nname="জৈব যৌগের ইতিহাস - পর্ব ০১" data-npdf="20250521-1747767276-zTUgBskf.pdf">
   জৈব যৌগের ইতিহাস - পর্ব ০১ <i class="fas fa-file-pdf text-red-500 ml-2"></i>
 </li>
 <li class="class-item p-2 rounded hover:bg-blue-100 cursor-pointer" data-vid="a_tsletdZjs" data-nname="জৈব যৌগের ইতিহাস - পর্ব ০২" data-npdf="20250525-1748120787-RXz1vtTE.pdf">
@@ -494,7 +512,7 @@
             lastItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
           }
         }
-      }, 2000);
+      }, 3500);
     });
 
 const downloadEmojiBtn = document.getElementById('downloadEmojiBtn');
