@@ -41,247 +41,260 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://cdn.plyr.io/3.7.8/plyr.css" rel="stylesheet">
   <style>
-  html, body {
+/* Reset and General Styles */
+html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #1f1f1f;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A common, clean font */
+    background-color: #171717; /* Very dark background */
     color: #e5e7eb;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
-  }
+}
 
-  header {
-    background-color: #2a2a2a;
-    border-radius: 1rem;
-    padding: 1rem;
-    margin: 1rem auto;
-    max-width: 100%;
-    width: calc(100% - 2rem);
+/* Header (Top Navigation Bar) */
+header {
+    background-color: #1e1e1e; /* Darker than body, but not black */
+    /* Removed margin and max-width/width for a full-width top bar */
+    padding: 10px 30px; /* Adjusted padding to match the image's height */
+    margin: 0; /* Full width */
+    max-width: none;
+    width: 100%;
     box-sizing: border-box;
-  }
+    display: flex;
+    justify-content: space-between; /* To push the quote to the right */
+    align-items: center;
+    border-bottom: 1px solid #282828; /* Subtle bottom line */
+}
 
-  .bg-white {
-    background-color: #2f2f2f !important;
-    border: 1px solid #3a3a3a;
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
+/* Quote/Slogan in Header */
+.footer-quotes { /* Reusing the class for the slogan on the right */
+    font-size: 0.8rem;
+    color: #a0a0a0; /* Lighter gray */
+    text-align: right;
+    margin: 0;
+    padding: 0;
+}
+.footer-quotes p {
+    margin: 0;
+}
 
-  .text-gray-100,
-  .text-lg {
-    color: #d4d4d4 !important;
-  }
+/* Main Content Layout (needs an implied container/wrapper not present in the original CSS) */
+/* Assuming the main content is a flex/grid container to hold the video and list side-by-side */
+.main-content-wrapper { 
+    display: flex;
+    gap: 20px; /* Space between the two main columns */
+    padding: 20px 30px; /* Padding for the main area */
+    max-width: 1200px; /* Example max width for content centering */
+    margin: 0 auto; /* Center the main content */
+    align-items: flex-start; /* Align items to the top */
+}
 
-  #classList {
+/* Left Column (Live Class/Video Player) */
+.left-column {
+    flex: 3; /* Allocate more space to the video player */
+    min-width: 0; /* Allow content to shrink */
+}
+
+/* Right Column (Class List) */
+.right-column {
+    flex: 1.5; /* Allocate less space to the class list */
+    min-width: 300px; /* Minimum width for the list to look good */
+}
+
+/* Background Card Styles (Used for Live Class box and Class List box) */
+.bg-white { /* Applied to both Live Class and Class List containers */
+    background-color: #1e1e1e !important; /* Matches the header/primary card background */
+    border: none; /* No border visible in the image */
+    border-radius: 8px; /* Slightly smaller, standard border-radius */
+    padding: 20px; /* Generous padding */
+    margin-bottom: 0; /* Removed margin-bottom here to match layout */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Headings for Live Class and Class List */
+h1, h2 { /* Targeting headings inside the cards */
+    color: #e5e7eb;
+    font-size: 1.1rem; /* Smaller font size for the headings */
+    margin: 0 0 15px 0; /* Margin below the heading */
+    text-align: left; /* Aligned to the left */
+    font-weight: 600;
+}
+.live-class-header { /* For 'Live Class' text */
+    color: #2e8b57; /* Accent color for the 'Live Class' title */
+    display: flex;
+    align-items: center;
+}
+.live-class-header::before {
+    content: '▶'; /* Simple play icon */
+    margin-right: 8px;
+    font-size: 0.9rem;
+}
+.class-list-header { /* For 'Class List' text */
+    color: #e5e7eb;
+    border-bottom: 1px solid #282828; /* Separator line below the header */
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+/* Class List Items */
+#classList {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
+}
 
-  #classList li {
-    color: #d1d1d1;
-    padding: 0.75rem 1rem;
-    border-radius: 1rem;
-    background-color: #262626;
-    margin-bottom: 0.5rem;
+#classList li {
+    color: #c0c0c0; /* Gray text color */
+    padding: 10px 15px; /* Tighter padding */
+    border-radius: 4px; /* Slightly less rounded */
+    background-color: transparent; /* No background for most items */
+    margin-bottom: 5px; /* Small space between items */
     transition: background-color 0.2s ease;
-  }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
 
-  #classList li:hover {
-    background-color: #313131;
-  }
+#classList li:hover {
+    background-color: #282828; /* Subtle hover effect */
+}
 
-  .bg-blue-200 {
-    background-color: #3b3b3b !important;
-    border-radius: 1rem;
-    padding: 0.75rem;
-  }
-
-  .text-red-500 {
-    color: #ef4444;
-  }
-
-  .fake-button {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
-  .footer-quotes {
-    font-size: 0.85rem;
-    color: #999;
-    text-align: center;
-    margin-top: 2rem;
-    padding: 0 1rem;
-  }
-
-  .footer-quotes p {
-    margin: 0.4rem 0;
-  }
-
-  .download-emoji {
-    display: inline-block;
-    background-color: #3f3f3f;
-    color: #f0f0f0;
-    padding: 0.6rem 1.2rem;
-    border-radius: 9999px;
+/* Active/Selected Class List Item */
+.bg-blue-200 { /* This is the selected item in the image */
+    background-color: #282828 !important; /* Dark gray for the active item */
+    color: #e5e7eb !important; /* White text for active item */
     font-weight: 600;
+    border-left: 3px solid #00c760; /* Green accent bar on the left */
+}
+
+.text-gray-100,
+.text-lg {
+    color: #e5e7eb !important; /* Ensuring white text on the dark background */
+}
+
+/* PDF/Download Icon on the right of the list item */
+.text-red-500 { /* Reusing this for the red download icon */
+    color: #ff3366; /* Bright red color */
+    font-size: 1.2rem;
+    /* You may need to add an icon font/svg to represent the PDF icon */
+}
+
+/* Action Buttons (Download PDF, Open on YouTube) */
+.button-group {
+    display: flex;
+    gap: 15px; /* Space between the two buttons */
+    margin-top: 20px; /* Space below the video player */
+}
+.download-emoji, .open-youtube-button {
+    flex: 1; /* Make buttons equal width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
     transition: background-color 0.2s ease;
-    text-align: center;
-  }
+    font-size: 1rem;
+    border: none;
+}
 
-  .download-emoji:hover {
+.download-emoji { /* Download PDF Button */
+    background-color: #00c760; /* Primary Green Accent Color */
+    color: #1a1a1a; /* Dark text on green background */
+}
+.download-emoji:hover {
+    background-color: #00e070;
+}
+
+.open-youtube-button { /* Open on YouTube Button (needs a new class) */
+    background-color: #3b3b3b; /* Dark gray */
+    color: #e5e7eb;
+}
+.open-youtube-button:hover {
     background-color: #4a4a4a;
-  }
+}
+/* For the existing download-emoji class, ensure it looks like the green button */
+.download-emoji {
+    background-color: #00c760; /* Matching the green button */
+    color: #1a1a1a;
+    padding: 12px 20px;
+    border-radius: 6px;
+}
 
-  .shadow-md {
-    border-radius: 1rem;
-  }
-
-  h1, h2 {
-    color: #e2e2e2;
-    font-size: 1.5rem;
-    margin: 1rem 0 0.5rem;
-    text-align: center;
-  }
-
-  footer {
-    background-color: #262626;
-    color: #b0b0b0;
-    border-top: 1px solid #333;
-    padding: 1rem;
-    text-align: center;
-    border-radius: 1rem;
-    margin: 1rem auto 0;
-    width: calc(100% - 2rem);
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Plyr Customizations */
-  .plyr {
-    border-radius: 1rem;
-    background-color: #2a2a2a;
+/* Video Player (Plyr) Customizations - Focused on the Video Frame itself */
+.plyr {
+    border-radius: 8px; /* Reduced border radius */
+    background-color: #1e1e1e;
     overflow: hidden;
     max-width: 100%;
-  }
+}
 
-  .plyr__video-wrapper {
-    background-color: #1e1e1e;
-  }
+.plyr__video-wrapper {
+    /* The video thumbnail itself has a dark green/black overlay, which is content-based, 
+       but we can ensure the player background is dark. */
+    background-color: #101010; 
+}
 
-  .plyr__control--overlaid {
-    background: #3a3a3a !important;
-    border-radius: 50%;
-    padding: 18px !important;
-  }
+/* Control bar appearance to match the sleek dark theme */
+.plyr__controls {
+    background-color: #1e1e1e !important; /* Same as the card background */
+    padding: 10px 15px;
+    border-radius: 0; /* Controls bar is flush with the bottom of the card */
+    border-top: 1px solid #282828; /* Subtle separation */
+}
 
-  .plyr__control--overlaid svg {
-    width: 40px !important;
-    height: 40px !important;
-    color: #fff !important;
-  }
+.plyr__control {
+    color: #e5e7eb !important; /* White icons */
+}
+.plyr__control:hover {
+    background: none !important; /* No background change on hover */
+    opacity: 0.8;
+}
 
-  .plyr__controls {
-    background-color: #2e2e2e !important;
-    padding: 0.5rem 1rem;
-    border-bottom-left-radius: 1rem;
-    border-bottom-right-radius: 1rem;
-  }
+/* Progress Bar (scrubber) accent color */
+.plyr__progress input[type=range] {
+    color: #00c760 !important; /* Green accent color for scrubber */
+}
 
-  .plyr__controls .plyr__control svg {
-    color: #fff !important;
-  }
-
-  .plyr__controls .plyr__control:hover svg {
-    color: #ddd !important;
-  }
-
-  .plyr__progress {
-    width: 100% !important;
-    margin: auto !important;
-  }
-
-  .plyr__progress input[type=range] {
+/* Tooltip and Menu (e.g., settings menu) */
+.plyr__tooltip {
+    background-color: #282828 !important;
     color: white !important;
-    height: 4px !important;
-  }
-
-  .plyr__progress input[type=range]::-webkit-slider-runnable-track,
-  .plyr__progress input[type=range]::-moz-range-track,
-  .plyr__progress input[type=range]::-ms-track {
-    background-color: #444 !important;
-    height: 4px !important;
-  }
-
-  .plyr__volume {
-    display: none !important;
-  }
-
-  .plyr__time {
-    color: #fff !important;
-  }
-
-  .plyr__tooltip {
-    background-color: #3a3a3a !important;
-    color: white !important;
-    border-radius: 0.4rem !important;
-    font-size: 0.75rem !important;
-  }
-
-  .plyr__menu__container {
-    background-color: #2e2e2e !important;
-    color: white !important;
-    border-radius: 0.4rem !important;
-    font-size: 0.9rem;
-  }
-
-  .plyr__menu__container [role=menuitemradio],
-  .plyr__menu__container [role=menuitem] {
-    color: white !important;
-  }
-
-  .plyr__menu__container [role=menuitemradio]:hover,
-  .plyr__menu__container [role=menuitem]:hover {
+}
+.plyr__menu__container {
+    background-color: #282828 !important;
+}
+.plyr__menu__container [role=menuitemradio]:hover,
+.plyr__menu__container [role=menuitem]:hover {
     background-color: #3b3b3b !important;
-  }
+}
 
-  .plyr__menu__container .plyr__control--active {
-    background-color: #444 !important;
-  }
+/* Footer (removed as it's not in the main visual area of the screenshot) */
+footer {
+    display: none;
+}
 
-  .plyr__menu__container .plyr__control--active svg {
-    color: white !important;
-  }
-
-  /* Make everything scale better on small screens */
-  @media (max-width: 768px) {
-    header, footer, .bg-white {
-      width: calc(100% - 1.5rem);
-      margin-left: auto;
-      margin-right: auto;
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    .main-content-wrapper {
+        flex-direction: column; /* Stack columns vertically */
+        padding: 15px;
     }
-
-    h1, h2 {
-      font-size: 1.25rem;
+    .left-column, .right-column {
+        flex: auto;
+        width: 100%;
+        min-width: 0;
     }
-
-    .download-emoji {
-      font-size: 0.95rem;
-      padding: 0.5rem 1rem;
+    header {
+        padding: 10px 15px;
     }
-
-    .plyr__control--overlaid {
-      padding: 14px !important;
-    }
-
-    .plyr__control--overlaid svg {
-      width: 32px !important;
-      height: 32px !important;
-    }
-  }
+}
 </style>
 
 </head>
@@ -821,3 +834,4 @@ playerElement.addEventListener('dblclick', (e) => {
 
 </body>
 </html>
+
